@@ -146,6 +146,16 @@ void MandelbrotViewer::handleZoom(double scrollDistance, sf::Vector2i mousePosit
     // In particular, the new world-coordinates rectangle will be of size
     // (worldViewFactor * (orig world width), worldViewFactor * (orig world height)),
     // and the user's cursor will point to exactly the same thing before and after the zoom.
+
+    float windowWidth = mWindow.getSize().x;
+    float windowHeight = mWindow.getSize().y;
+    
+    sf::Vector2f mousePosWorld = mWindow.mapPixelToCoords(mousePosition);
+
+    float newWWidth = windowWidth * static_cast<double>(worldViewFactor);
+    float newWHeight = windowHeight * static_cast<double>(worldViewFactor);
+
+    mWindow.setSize({windowWidth, windowHeight});
 }
 
 void MandelbrotViewer::handleWindowResize(sf::Vector2u newSize)  // newSize is in window coords.
@@ -163,12 +173,17 @@ void MandelbrotViewer::handleWindowResize(sf::Vector2u newSize)  // newSize is i
     //       was scaled in the respective dimension, such that the original view is only
     //       cropped/extended, not zoomed.
     // ... your code here...
+    float scaleX = newSize.x / mWindowSize.x;
+    float scaleY = newSize.y / mWindowSize.y;
+
+
 
     // update CPU-side image buffer size to have enough memory for all the pixels:
     mViewBuffer.resize(newSize);
     // TODO: update mViewBufferGPU so that it has enough memory for all the pixels in the new window
     // size
     //      Hint: (void)mViewBufferGPU.resize ... something ... this is a trivial one-liner.
+    mViewBufferGPU.resize(newSize);
     // The sprite will have an incorrect view into the texture after resize, so we update:
     mViewSprite.setTextureRect(sf::IntRect({0, 0}, sf::Vector2i(newSize)));
     mWindowSize = newSize;  // update mWindowSize.
@@ -201,6 +216,29 @@ double MandelbrotViewer::mandelbrot(double cX, double cY, int maxIters) const {
     // TODO: return the number of iterations it takes for z to escape a radius of 2,
     //       if it happens within maxIters iterations, otherwise return infinity.
 
+    int currIters = 0;
+
+    double zX = 0.0;
+    double zY = 0.0;
+
+    double zPrimeX = 0.0;
+    double zPrimeY = 0.0;
+
+    while (currIters < maxIters) {
+        zPrimeX = cX + zX;
+        zPrimeY = cY + zY;
+
+        float norm = std::sqrt(zPrimeX * zPrimeX + zPrimeY * zPrimeY);
+
+        if (std::abs(norm) > 2){
+            return static_cast<double>(currIters);
+        }
+
+        zX = zPrimeX;
+        zY = zPrimeY;
+        currIters++;
+    }
+
     return std::numeric_limits<double>::infinity();  // get rid of this and add your code here...
 }
 
@@ -219,7 +257,9 @@ sf::Vector2<double> MandelbrotViewer::windowPosToWorld(const sf::Vector2<double>
     //       the caller will have to cast to sf::Vector2<double>), convert them into world
     //       coordinates in the context of the current world view.
 
-    return {};
+    sf::Vector2f wordlPos = mWindow.mapPixelToCoords(pWindow);
+
+    return {static_cast<double>(wordlPos.x), static_cast<double>(wordlPos.y)};
 }
 
 // drawIntoBuffer renders the current world view (bounded by mMinPointWorld and mMaxPointWorld)
@@ -239,6 +279,8 @@ void MandelbrotViewer::drawIntoViewBuffer(int maxIters) {
 void MandelbrotViewer::copyViewBufferToGPU() {
     // TODO: load mViewBuffer from the CPU into mViewBufferGPU on the GPU.
     // Hint: this is a one-liner.
+    mViewBufferGPU.loadFromImage(mViewBuffer);
+
 }
 
 // draw clears the window, draws the view, as well as the text with its shadow underneath
