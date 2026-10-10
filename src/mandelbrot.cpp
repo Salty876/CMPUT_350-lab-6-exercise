@@ -263,7 +263,30 @@ double MandelbrotViewer::mandelbrotSmooth(double cX, double cY, int maxIters) co
     //       If you use an escape radius of exactly 2, you will see some artifacts. Use a
     //       higher radius (this is still correct, since divergence -> infty), but with more
     //       computational cost (since you need to simulate more steps).
-    return std::numeric_limits<double>::infinity();  // get rid of this and add your code here...
+    int currIters = 0;
+
+    double zX = 0.0;
+    double zY = 0.0;
+
+    double zPrimeX = 0.0;
+    double zPrimeY = 0.0;
+
+    while (currIters < maxIters) {
+        zPrimeX = zX * zX - zY * zY + cX;
+        zPrimeY = 2.0 * zX * zY + cY;
+
+        float norm = std::sqrt(zPrimeX * zPrimeX + zPrimeY * zPrimeY);
+
+        if (std::abs(norm) > 4){
+            return static_cast<double>((currIters + 1) - ((std::log(std::log(norm)) / LOG_2)));
+        }
+
+        zX = zPrimeX;
+        zY = zPrimeY;
+        currIters++;
+    }
+
+    return std::numeric_limits<double>::infinity();
 }
 
 // windowPosToWorld takes a point in window coordinates and converts it to world coordinates

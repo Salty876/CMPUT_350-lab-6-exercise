@@ -1,1 +1,9 @@
 Answer written questions here:
+
+Answer 1: We start with a low number because less iterations means we can render faster. Thus letting the user see and image almost instantly.
+
+Answer 2: You could have each computer/core/thread render its own pixel. It would calculate its own madelbrot escape iteration, determine the color and return its results
+          allowing us to reduce the rendering time.
+
+Answer 3: Rendering would 4 times harder since we're calling our mandelbrot method 4 times per pixel instead of once, increasing rendering time. It would visually look better though
+          since each pixel would have more representation (4 times as much).
