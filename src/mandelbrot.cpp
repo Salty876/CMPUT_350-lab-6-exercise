@@ -149,13 +149,17 @@ void MandelbrotViewer::handleZoom(double scrollDistance, sf::Vector2i mousePosit
 
     float windowWidth = mWindow.getSize().x;
     float windowHeight = mWindow.getSize().y;
-    
-    sf::Vector2f mousePosWorld = mWindow.mapPixelToCoords(mousePosition);
 
-    float newWWidth = windowWidth * static_cast<double>(worldViewFactor);
-    float newWHeight = windowHeight * static_cast<double>(worldViewFactor);
+    sf::Vector2<double> worldSize = mMaxPointWorld - mMinPointWorld;
 
-    mWindow.setSize({windowWidth, windowHeight});
+    double mouseX = mousePosition.x / windowWidth;
+    double mouseY = mousePosition.y / windowHeight;
+
+    sf::Vector2<double> mouseWorld(mMinPointWorld.x + mouseX * worldSize.x, mMinPointWorld.y + mouseY * worldSize.y);
+
+    mMinPointWorld = mouseWorld + (mMinPointWorld - mouseWorld) * worldViewFactor;
+    mMaxPointWorld = mouseWorld + (mMaxPointWorld - mouseWorld) * worldViewFactor;
+
 }
 
 void MandelbrotViewer::handleWindowResize(sf::Vector2u newSize)  // newSize is in window coords.
@@ -173,8 +177,19 @@ void MandelbrotViewer::handleWindowResize(sf::Vector2u newSize)  // newSize is i
     //       was scaled in the respective dimension, such that the original view is only
     //       cropped/extended, not zoomed.
     // ... your code here...
-    float scaleX = newSize.x / mWindowSize.x;
-    float scaleY = newSize.y / mWindowSize.y;
+    float scaleX = static_cast<float>(newSize.x) / mWindowSize.x;
+    float scaleY = static_cast<float>(newSize.y) / mWindowSize.y;
+
+    sf::Vector2<double> centerWorld = (mMaxPointWorld + mMinPointWorld) * 0.5;
+
+    sf::Vector2<double> currWorldSize = mMaxPointWorld - mMinPointWorld;
+
+    currWorldSize.x *= scaleX;
+    currWorldSize.y *= scaleY;
+
+    mMinPointWorld = centerWorld - 0.5 * currWorldSize;
+    mMaxPointWorld = centerWorld + 0.5 * currWorldSize;
+
 
 
 
@@ -225,8 +240,8 @@ double MandelbrotViewer::mandelbrot(double cX, double cY, int maxIters) const {
     double zPrimeY = 0.0;
 
     while (currIters < maxIters) {
-        zPrimeX = cX + zX;
-        zPrimeY = cY + zY;
+        zPrimeX = zX * zX - zY * zY + cX;
+        zPrimeY = 2.0 * zX * zY + cY;
 
         float norm = std::sqrt(zPrimeX * zPrimeX + zPrimeY * zPrimeY);
 
@@ -257,9 +272,12 @@ sf::Vector2<double> MandelbrotViewer::windowPosToWorld(const sf::Vector2<double>
     //       the caller will have to cast to sf::Vector2<double>), convert them into world
     //       coordinates in the context of the current world view.
 
-    sf::Vector2f wordlPos = mWindow.mapPixelToCoords(pWindow);
 
-    return {static_cast<double>(wordlPos.x), static_cast<double>(wordlPos.y)};
+    double coordX = mMinPointWorld.x + ((pWindow.x + 0.5) / mWindowSize.x) * (mMaxPointWorld.x - mMinPointWorld.x);
+    double coordY = mMinPointWorld.y + ((pWindow.y + 0.5) / mWindowSize.y) * (mMaxPointWorld.y - mMinPointWorld.y);
+
+
+    return {static_cast<double>(coordX), static_cast<double>(coordY)};
 }
 
 // drawIntoBuffer renders the current world view (bounded by mMinPointWorld and mMaxPointWorld)
@@ -272,6 +290,27 @@ void MandelbrotViewer::drawIntoViewBuffer(int maxIters) {
     //       the escape radius (using mandelbrotSmooth() or mandelbrot()). If it never escapes,
     //       color the pixel black, otherwise, pass the escape iteration number to
     //       CyclicGradient::DEFAULT_GRADIENT(n) to get a colour to set the pixel to.
+    
+    for (int x = 0; x < mWindowSize.x - 1; x++) {
+        for (int y = 0; y < mWindowSize.y; y++) {
+            sf::Vector2<double> currPixel({static_cast<double>(x), static_cast<double>(y)});
+            sf::Vector2<double> worldPos = MandelbrotViewer::windowPosToWorld(currPixel);
+            double escapeTime = MandelbrotViewer::mandelbrot(worldPos.x, worldPos.y, maxIters);
+
+            sf::Color color;
+
+            if (escapeTime == std::numeric_limits<double>::infinity()) {
+                color = sf::Color::Black;
+            } else {
+                color = CyclicGradient::DEFAULT_GRADIENT(escapeTime);
+            }
+
+            mViewBuffer.setPixel({static_cast<unsigned int>(currPixel.x), static_cast<unsigned int>(currPixel.y)}, color);
+
+        }
+
+
+    }
 }
 
 // copyViewBufferToGPU takes the drawn CPU-side buffer mViewBuffer and copies it to the

@@ -1,0 +1,160 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"debug/_deps/mbedtls-src/include/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 8,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 12,
+				"parent" : 0
+			}
+		]
+	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 11
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "include/mbedtls",
+			"paths" : 
+			[
+				"debug/_deps/mbedtls-src/include/mbedtls/aes.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/aria.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/asn1.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/asn1write.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/base64.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/bignum.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/block_cipher.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/build_info.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/camellia.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/ccm.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/chacha20.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/chachapoly.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/check_config.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/cipher.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/cmac.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/compat-2.x.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/config_adjust_legacy_crypto.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/config_adjust_legacy_from_psa.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/config_adjust_psa_from_legacy.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/config_adjust_psa_superset_legacy.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/config_adjust_ssl.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/config_adjust_x509.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/config_psa.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/constant_time.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/ctr_drbg.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/debug.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/des.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/dhm.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/ecdh.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/ecdsa.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/ecjpake.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/ecp.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/entropy.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/error.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/gcm.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/hkdf.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/hmac_drbg.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/lms.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/mbedtls_config.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/md.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/md5.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/memory_buffer_alloc.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/net_sockets.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/nist_kw.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/oid.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/pem.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/pk.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/pkcs12.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/pkcs5.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/pkcs7.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/platform.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/platform_time.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/platform_util.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/poly1305.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/private_access.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/psa_util.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/ripemd160.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/rsa.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/sha1.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/sha256.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/sha3.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/sha512.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/ssl.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/ssl_cache.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/ssl_ciphersuites.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/ssl_cookie.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/ssl_ticket.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/threading.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/threading_alt.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/timing.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/version.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/x509.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/x509_crl.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/x509_crt.h",
+				"debug/_deps/mbedtls-src/include/mbedtls/x509_csr.h"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "include/psa",
+			"paths" : 
+			[
+				"debug/_deps/mbedtls-src/include/psa/build_info.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_adjust_auto_enabled.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_adjust_config_dependencies.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_adjust_config_key_pair_types.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_adjust_config_synonyms.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_builtin_composites.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_builtin_key_derivation.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_builtin_primitives.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_compat.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_config.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_driver_common.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_driver_contexts_composites.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_driver_contexts_key_derivation.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_driver_contexts_primitives.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_extra.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_legacy.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_platform.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_se_driver.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_sizes.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_struct.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_types.h",
+				"debug/_deps/mbedtls-src/include/psa/crypto_values.h"
+			],
+			"type" : "file"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "_deps/mbedtls-build/include",
+		"source" : "debug/_deps/mbedtls-src/include"
+	}
+}
